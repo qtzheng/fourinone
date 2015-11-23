@@ -1,0 +1,5 @@
+package fourinone
+
+var(
+	threadPoolExecutor
+)
