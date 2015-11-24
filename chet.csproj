@@ -49,22 +49,32 @@
     <None Include="authpolicy.go" />
     <None Include="authpolicy_test.go" />
     <None Include="beancontext.go" />
+    <None Include="beanservice.go" />
     <None Include="config.go" />
     <None Include="configcontext.go" />
+    <None Include="lastestlistener.go" />
     <None Include="mulbean.go" />
+    <None Include="objectbean.go" />
     <None Include="objvalue.go" />
+    <None Include="parkactive.go" />
+    <None Include="parkloacl.go" />
     <None Include="poolexector.go" />
     <None Include="resourcebean.go" />
+    <None Include="servicecontext.go" />
     <None Include="template.go" />
     <None Include="utils\config.go" />
     <None Include="utils\log.go" />
     <None Include="utils\sort.go" />
     <None Include="utils\sort_test.go" />
+    <None Include="utils\xml.go" />
     <None Include="xmlcallback.go" />
     <None Include="xmlutil.go" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="testResource\config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

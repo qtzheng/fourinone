@@ -1,5 +1,8 @@
 package fourinone
 
-func SetConfigFile(configFile string) {
-
+func SetConfigFile(cfgFile string) {
+	configFile = cfgFile
+}
+func GetPark() ParkLocal {
+	parkCfg := getParkConfig()
 }

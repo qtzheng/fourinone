@@ -6,11 +6,24 @@ import (
 	"github.com/qtzheng/fourinone/utils"
 	"io/ioutil"
 )
-
+type Properties struct{
+	name string
+	value string
+	config utils.MergedConfig
+}
+func(p *Properties)Put(){
+	
+}
+func NewProperties(name,value string)*Properties{
+	return &Properties{
+		name:name,
+		value:value,
+	}
+}
 type xmlCallback struct {
 	textFlag                                                           bool
 	propsAl                                                            []interface{}
-	curProps                                                           utils.MergedConfig
+	curProps                                                           *Properties
 	curKey, c_PROPSROW_DESC, c_KEY_DESC, curPROPSROW_DESC, curKEY_DESC string
 }
 
@@ -37,6 +50,10 @@ func (x *XmlCallback) loadXml(filePath string) {
 						x.curPROPSROW_DESC = attr.Value
 					}
 				}
+				x.curProps=NewProperties()
+			case xml.CharData:
+				content := string([]byte(token))
+				
 			default:
 				for _, attr := range token.Attr {
 					if attr.Name.Local == "DESC" {
