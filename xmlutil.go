@@ -1,31 +1,42 @@
 package fourinone
 
-type XmlUtil struct{
-	
+import (
+	"github.com/qtzheng/fourinone/utils"
+)
+type XmlUtil struct {
 }
-func(x *XmlUtil)GetXmlPropsByFile(filePath string,p ...string)[]interface{}{
-	var PROPSROW_DESC,KEY_DESC string
-	if len(p)==2{
-		PROPSROW_DESC=p[0]
-		KEY_DESC=p[1]
+
+func (x *XmlUtil) GetXmlPropsByFile(filePath string, p ...string) []interface{} {
+	var PROPSROW_DESC, KEY_DESC string
+	if len(p) == 2 {
+		PROPSROW_DESC = p[0]
+		KEY_DESC = p[1]
 	}
 	//handler:=
 	return nil
 }
-func (x *XmlUtil) GetXmlPropsByTable() []interface{}{
+func (x *XmlUtil) GetXmlPropsByTable() []interface{} {
 	return nil
 }
-func (x *XmlUtil) GetXmlPropsByObject() []interface{}{
+func (x *XmlUtil) GetXmlPropsByObject() []interface{} {
 	return nil
 }
-func (x *XmlUtil) GetXmlFileByTable() []interface{}{
+func (x *XmlUtil) GetXmlFileByTable() []interface{} {
 	return nil
 }
-func (x *XmlUtil) GetXmlObjectByFile() []interface{}{
-	return nil
+func (x *XmlUtil) GetXmlObjectByFile(filePath, PROPSROW_DESC, KEY_DESC) []ObjValue {
+	if exist:=utils.CheckFile(filePath);!exist{
+		utils.LogInfo(utils.Info,"[XmlConfig]create default config.xml in the path")
+		utils.CreateFile(filePath,x.getDefaultConfig())
+	}
+	handler := NewXmlObjectCallback()
+	handler.SetKEY_DESC(KEY_DESC)
+	handler.SetPROPSROW_DESC(PROPSROW_DESC)
+	handler.parse(filePath)
+	return handler.GetObjAl()
 }
-func (x *XmlUtil) getDefaultConfig()string{
-	config:=`<?xml version="1.0" encoding="UTF-8"?>
+func (x *XmlUtil) getDefaultConfig() string {
+	config := `<?xml version="1.0" encoding="UTF-8"?>
 <PROPSTABLE DESC="TABLENAME">
   <PROPSROW DESC="PARK">
     <SERVICE>ParkService</SERVICE>

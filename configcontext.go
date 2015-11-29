@@ -1,10 +1,13 @@
 package fourinone
 
+import (
+	"strings"
+)
+
 var (
 	mb                                                                                     MulBean
 	c_QSXYSJ, c_YMMZ, c_RZDY, c_YCDYXY, c_DMY, c_AQCL, c_POLICY, c_LSML, c_SERVICEONWORKER string
 	c_TMOT                                                                                 int64 = -1
-	configFile                                                                             string
 	c_USERS                                                                                ObjValue
 	c_KEYLENTH                                                                             int64 = -1
 	c_VALUELENGTH                                                                          int64 = -1
@@ -14,9 +17,8 @@ var (
 	c_DATAROOT                                                                             string
 )
 
-func init() {
-	configFile = "config.xml"
-}
+const configFile = "config.xml"
+
 func getKEYLENTH() int64 {
 
 }
@@ -80,9 +82,10 @@ func getSecTime(hours float32) int64 {
 }
 func getParkConfig() [][]string {
 	servers := getConfig("PARK", "SERVERS", "", "")
+	return getServerFromStr(servers)
 }
 func getParkService() string {
-	return ""
+	return getConfig("PARK","SERVICE","","")
 }
 func getCtorService() []string {
 	return nil
@@ -92,7 +95,7 @@ func getFttpConfig() []string {
 }
 
 func getInetConfig() []string {
-	return nil
+	return strings.Split(getConfig("WEBAPP","SERVERS","",""),":")
 }
 func getUsersConfig() ObjValue {
 	return nil
@@ -129,10 +132,11 @@ func getParallelPattern() int {
 }
 func getConfig(cfgname, cfgprop, cfgdesc, defvalue string) string {
 	xu := &XmlUtil{}
-	al := xu.getXmlObjectByFile(configFile, cfgname, cfgdesc)
+	al := xu.GetXmlObjectByFile(configFile, cfgname, cfgdesc)
 
 	if al != nil && len(al) > 0 {
-		cfgProps := al
+		cfgProps := al[0]
+		cfgProps.GetData(cfgprop, defvalue)
 	}
 	return ""
 }
@@ -146,10 +150,15 @@ func getDateLong(dateStr string) string {
 	return ""
 }
 func getServerFromStr(servers string) [][]string {
-	return nil
+	serverarr := strings.Split(servers, ",")
+	sarr := make([][]string, len(serverarr))
+	for n, v := range serverarr {
+		hostport := strings.Split(serverarr[n], ":")
+	}
+	return sarr
 }
 func getObjFromStr(strs string) ObjValue {
-
+	serverarr := strings.Split()
 }
 func getRequest(requestUrl string) string {
 	return ""

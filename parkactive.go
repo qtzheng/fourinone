@@ -1,5 +1,4 @@
 package fourinone
 
-type ParkActive interface{
-	
+type ParkActive interface {
 }

@@ -1,7 +1,7 @@
 package fourinone
 
-type EventListener interface{
+type EventListener interface {
 }
-type LastestListener interface{
-	happenLastest(le LastestEvent)bool
+type LastestListener interface {
+	happenLastest(le LastestEvent) bool
 }

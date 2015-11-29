@@ -63,11 +63,13 @@
     <None Include="servicecontext.go" />
     <None Include="template.go" />
     <None Include="utils\config.go" />
+    <None Include="utils\file.go" />
     <None Include="utils\log.go" />
     <None Include="utils\sort.go" />
     <None Include="utils\sort_test.go" />
     <None Include="utils\xml.go" />
     <None Include="xmlcallback.go" />
+    <None Include="xmlobjectcallback.go" />
     <None Include="xmlutil.go" />
   </ItemGroup>
   <ItemGroup>
