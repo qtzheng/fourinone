@@ -1,17 +1,17 @@
-package transport
+package http
 
 import (
 	"net"
 	"time"
 )
 
-type timeoutListener struct {
+type TimeoutListener struct {
 	net.Listener
 	wtimeoutd  time.Duration
 	rdtimeoutd time.Duration
 }
 
-func (t *timeoutListener) Accept() (net.Conn, error) {
+func (t *TimeoutListener) Accept() (net.Conn, error) {
 	c, err := t.Listener.Accept()
 	if err != nil {
 		return nil, err
@@ -23,11 +23,11 @@ func (t *timeoutListener) Accept() (net.Conn, error) {
 	}, nil
 }
 func NewTimeoutListener(addr string, rdtimeoutd, wtimeoutd time.Duration) (net.Listener, error) {
-	l, err := NewListener(addr)
+	l, err := net.Listen("tcp", addr)
 	if err != nil {
 		return nil, err
 	}
-	return &timeoutListener{
+	return &TimeoutListener{
 		Listener:   l,
 		wtimeoutd:  wtimeoutd,
 		rdtimeoutd: rdtimeoutd,

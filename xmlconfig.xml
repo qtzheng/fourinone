@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Config>
-  <ParkCluster Name="cluster1" HeartBeat="3" MaxDelay="3" SafeMemoryPer="95">
-    <Member Name="park1" ClientUrl="localhost:1000" PeerUrl="localhost:1001"></Member>
+  <ParkCluster HeartBeat="3" MaxDelay="3" SafeMemoryPer="95">
+    <Member Name="park1" ClientUrl="localhost:1500" PeerUrl="localhost:1501"></Member>
     <Peer Name="park2" ClientUrl="localhost:2000" PeerUrl="localhost:2001"></Peer>
     <Peer Name="park3" ClientUrl="localhost:3000" PeerUrl="localhost:3001"></Peer>
     <Peer Name="park4" ClientUrl="localhost:4000" PeerUrl="localhost:4001"></Peer>

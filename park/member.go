@@ -1,32 +1,27 @@
 package park
 
 import (
-	"fmt"
-	"github.com/qtzheng/fourinone/pkg/types"
-	"time"
+//"fmt"
+//"time"
 )
 
-type member struct {
-	ID        types.ID `json:"id"`
-	Name      string   `json:"name,omitempty"`
-	PeerUrl   string   `json:"peerUrl"`
-	ClientUrl string   `json:"clientUrl,omitempty"`
+type Member struct {
+	Name      string `json:"name"`
+	PeerUrl   string `json:"peerUrl"`
+	ClientUrl string `json:"clientUrl,omitempty"`
 }
 
-func newMember(name, peerUrl, clientUrl string, now time.Time) *member {
-	m := &member{
+func NewMember(name, peerUrl, clientUrl string) *Member {
+	m := &Member{
 		Name:      name,
 		PeerUrl:   peerUrl,
 		ClientUrl: clientUrl,
 	}
-	data := []byte(name)
-	data = append(data, []byte(peerUrl)...)
-	data = append(data, []byte(clientUrl)...)
-	if now != nil {
-		data = append(data, []byte(fmt.Sprintf("%d", now.Unix()))...)
-	}
-	m.ID = types.NewID(data)
+	return m
 }
-func (m *member) name() {
-
+func (m *Member) equal(memb *Member) bool {
+	if memb == nil {
+		return false
+	}
+	return m.Name == memb.Name
 }
