@@ -1,6 +1,7 @@
 package park
 
 import (
+	"net"
 	"net/http"
 )
 
@@ -9,6 +10,7 @@ type serverContext struct {
 	response *Response
 	server   *parkServer
 	store    map[string]interface{}
+	query    url.Values
 }
 
 func (s *serverContext) Request() *http.Request {
@@ -22,6 +24,13 @@ func(s *serverContext)reset(req *http.Request, w http.ResponseWriter, srv *parkS
 	s.response.Reset(w)
 	s.store = nil
 	s.server = srv
+	s.query=nil
+}
+func(s *serverContext)Query(name string)string{
+	if(s.query==nil){
+		s.query=s.request.URL.Query()
+	}
+	return s.query.Get(name)
 }
 func NewServerContext(req *http.Request, res *Response, s *parkServer) *serverContext {
 	c := &serverContext{

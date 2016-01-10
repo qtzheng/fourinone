@@ -1,7 +1,6 @@
 package park
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 )

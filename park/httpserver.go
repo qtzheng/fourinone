@@ -54,7 +54,12 @@ func isMaster(c *serverContext) error {
 	} else {
 		c.response.Header().Set("Park-IsMaster", "false")
 	}
-	fmt.Println("郑乾通")
 	c.response.WriteHeader(http.StatusOK)
 	return nil
+}
+func updateStore(c *serverContext)error{
+	domain:=c.Query("domain")
+	node:=c.Query("node")
+	value:=c.Query("value")
+	return c.server.store.PutNode(domain,node,value)
 }

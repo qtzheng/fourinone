@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"sync"
 	"time"
+	"github.com/qtzheng/fourinone/store"
 )
 
 const (
@@ -24,6 +25,7 @@ type parkServer struct {
 	mu       sync.RWMutex
 	pool     sync.Pool
 	stop     chan struct{}
+	store    store.Store
 }
 
 func newParkServer(cfg *ParkConfig) *parkServer {
@@ -34,6 +36,7 @@ func newParkServer(cfg *ParkConfig) *parkServer {
 	s.pool.New = func() interface{} {
 		return NewServerContext(nil, new(Response), s)
 	}
+	s.store=store.New()
 	return s
 }
 func RunPark(cfg *ParkConfig) (<-chan struct{}, error) {
