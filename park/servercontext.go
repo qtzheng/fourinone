@@ -1,8 +1,8 @@
 package park
 
 import (
-	"net"
 	"net/http"
+	"net/url"
 )
 
 type serverContext struct {
@@ -19,16 +19,16 @@ func (s *serverContext) Request() *http.Request {
 func (s *serverContext) Response() *Response {
 	return s.response
 }
-func(s *serverContext)reset(req *http.Request, w http.ResponseWriter, srv *parkServer){
+func (s *serverContext) reset(req *http.Request, w http.ResponseWriter, srv *parkServer) {
 	s.request = req
 	s.response.Reset(w)
 	s.store = nil
 	s.server = srv
-	s.query=nil
+	s.query = nil
 }
-func(s *serverContext)Query(name string)string{
-	if(s.query==nil){
-		s.query=s.request.URL.Query()
+func (s *serverContext) Query(name string) string {
+	if s.query == nil {
+		s.query = s.request.URL.Query()
 	}
 	return s.query.Get(name)
 }

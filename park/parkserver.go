@@ -3,10 +3,10 @@ package park
 import (
 	"fmt"
 	ghttp "github.com/qtzheng/fourinone/pkg/http"
+	"github.com/qtzheng/fourinone/store"
 	"net/http"
 	"sync"
 	"time"
-	"github.com/qtzheng/fourinone/store"
 )
 
 const (
@@ -36,14 +36,14 @@ func newParkServer(cfg *ParkConfig) *parkServer {
 	s.pool.New = func() interface{} {
 		return NewServerContext(nil, new(Response), s)
 	}
-	s.store=store.New()
+	s.store = store.New()
 	return s
 }
 func RunPark(cfg *ParkConfig) (<-chan struct{}, error) {
 	s := newParkServer(cfg)
-	p_router := NewRouter(prefix,s) //用于集群间通信路由
+	p_router := NewRouter(prefix, s) //用于集群间通信路由
 	p_router.Add(GET, isMasterPath, isMaster)
-	c_router := NewRouter(prefix,s) //用于客户端通信路由
+	c_router := NewRouter(prefix, s) //用于客户端通信路由
 	p_httpServer := NewHttpServer(cfg.Member.PeerUrl, p_router)
 	p_httpServer.StartPeer()
 
@@ -53,8 +53,12 @@ func RunPark(cfg *ParkConfig) (<-chan struct{}, error) {
 }
 func (p *parkServer) Run() (<-chan struct{}, error) {
 	p.wantBeMaster()
+	if !p.isMaster {
+
+	}
 	return nil, nil
 }
+
 func (p *parkServer) wantBeMaster() {
 	fmt.Printf("%s-->集群：%s-->节点：%s-->请求成为主节点!\n", time.Now().Format("2006-01-02 15:04:05"), p.cfg.ParkName, p.cfg.Member.Name)
 	var (

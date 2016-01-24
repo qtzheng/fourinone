@@ -70,11 +70,11 @@ type Router struct {
 	server *parkServer
 }
 
-func NewRouter(prefix string,s *parkServer) *Router {
+func NewRouter(prefix string, s *parkServer) *Router {
 	r := &Router{
 		prefix: prefix,
 		routes: make(map[string]*Route),
-		server:s,
+		server: s,
 	}
 	return r
 }
@@ -99,7 +99,7 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	c := r.server.pool.Get().(*serverContext)
-	c.reset(req,w,r.server)
+	c.reset(req, w, r.server)
 	if err := h(c); err != nil {
 		w.Header().Set(ContentType, TextPlain)
 		w.WriteHeader(http.StatusBadRequest)
@@ -119,5 +119,5 @@ func (r *Router) Add(action, path string, h HandlerFunc) {
 	case DELETE:
 		v.delete = h
 	}
-	r.routes[path]=v
+	r.routes[path] = v
 }

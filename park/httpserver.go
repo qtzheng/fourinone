@@ -57,9 +57,9 @@ func isMaster(c *serverContext) error {
 	c.response.WriteHeader(http.StatusOK)
 	return nil
 }
-func updateStore(c *serverContext)error{
-	domain:=c.Query("domain")
-	node:=c.Query("node")
-	value:=c.Query("value")
-	return c.server.store.PutNode(domain,node,value)
+func updateStore(c *serverContext) error {
+	domain := c.Query("domain")
+	node := c.Query("node")
+	value := c.Query("value")
+	return c.server.store.PutNode(domain, node, value)
 }
